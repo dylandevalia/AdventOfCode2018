@@ -7,9 +7,14 @@ import java.util.TreeSet;
 
 class Day1 {
 	
-	static void run_1(String inputFile) {
+	/**
+	 * From the input file '/inputs/1.txt' calculates the cumulative
+	 * value, starting from 0, after adding or subtracting the number
+	 * Prints the final sum.
+	 */
+	static void run_1() {
 		try {
-			InputStream in = Day1.class.getResourceAsStream(inputFile);
+			InputStream in = Day1.class.getResourceAsStream("/inputs/1.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			
 			String line;
@@ -22,20 +27,25 @@ class Day1 {
 				sum += num * sign;
 			}
 			
-			System.out.println(sum);
+			System.out.println("1-1: " + sum);
 		} catch (Exception e) {
-			System.out.println(e);
+			System.err.println(e);
 		}
 	}
 	
-	static void run_2(String inputFile) {
+	/**
+	 * From the input file '/inputs/1.txt' loops through the file calculating the
+	 * cumulative value until the sum has been reached twice
+	 * Prints the number that was first reached twice
+	 */
+	static void run_2() {
 		try {
 			String line;
 			int sum = 0;
 			TreeSet<Integer> prevSums = new TreeSet<>();
 			
 			do {
-				InputStream in = Day1.class.getResourceAsStream(inputFile);
+				InputStream in = Day1.class.getResourceAsStream("/inputs/1.txt");
 				BufferedReader br = new BufferedReader(new InputStreamReader(in));
 				
 				while ((line = br.readLine()) != null) {
@@ -47,14 +57,14 @@ class Day1 {
 					if (!prevSums.contains(sum)) {
 						prevSums.add(sum);
 					} else {
-						System.out.println(sum);
+						System.out.println("1-2: " + sum + "\n");
 						return;
 					}
 				}
 			} while (true);
 			
 		} catch (Exception e) {
-			System.out.println(e);
+			System.err.println(e);
 		}
 	}
 }
