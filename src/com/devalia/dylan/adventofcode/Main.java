@@ -20,5 +20,8 @@ public class Main {
 		
 		Day3.run_1();
 		Day3.run_2();
+		
+		Day4.run_1();
+		Day4.run_2();
 	}
 }

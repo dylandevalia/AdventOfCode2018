@@ -6,8 +6,8 @@ import java.io.InputStreamReader;
 
 class Day3 {
 	
-	private static int[][] claims = new int[1001][1001];
 	private static boolean hasFirstRun = false;
+	private static int[][] claims = new int[1001][1001];
 	
 	/**
 	 * From the input file '/inputs/3.txt' marks out the areas specified and calculates
@@ -70,6 +70,7 @@ class Day3 {
 	static void run_2() {
 		if (!hasFirstRun) {
 			System.err.println("3-2: Please run Day3.run_1() first.");
+			return;
 		}
 		
 		try {
@@ -119,11 +120,11 @@ class Day3 {
 				}
 				
 				if (found) {
-					System.out.println("3-2: " + id);
+					System.out.println("3-2: " + id + "\n");
 				}
 			}
 		} catch (Exception e) {
-			System.out.println(e);
+			System.err.println(e);
 		}
 	}
 }
