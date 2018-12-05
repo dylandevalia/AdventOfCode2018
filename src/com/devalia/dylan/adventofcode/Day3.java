@@ -1,130 +1,98 @@
 package com.devalia.dylan.adventofcode;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-class Day3 {
+class Day3 extends AbstractDay {
 	
-	private static boolean hasFirstRun = false;
+	private class Indexes {
+		
+		int at = 0, comma = 0, colon = 0, times = 0;
+	}
+	
+	public Day3() {
+		super(3);
+	}
+	
 	private static int[][] claims = new int[1001][1001];
 	
 	/**
-	 * From the input file '/inputs/3.txt' marks out the areas specified and calculates
-	 * how many squares are used more than once
-	 * Prints the number of squares used two or more times
+	 * From the input file '/inputs/3.txt' marks out the areas specified and calculates how many
+	 * squares are used more than once Prints the number of squares used two or more times
 	 */
-	static void run_1() {
-		try {
-			InputStream in = Day3.class.getResourceAsStream("/inputs/3.txt");
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+	String run_1(String[] input) {
+		int claimed = 0;
+		
+		for (String line : input) {
+			Indexes i = getIndexes(line);
 			
-			String line;
-			int claimed = 0;
+			int left = Integer.parseInt(line.substring(i.at + 2, i.comma));
+			int top = Integer.parseInt(line.substring(i.comma + 1, i.colon));
+			int width = Integer.parseInt(line.substring(i.colon + 2, i.times));
+			int height = Integer.parseInt(line.substring(i.times + 1));
 			
-			while ((line = br.readLine()) != null) {
-				int at = 0, comma = 0, colon = 0, times = 0;
-				for (int i = 0; i < line.length(); i++) {
-					switch (line.charAt(i)) {
-						case '@':
-							at = i;
-							break;
-						case ',':
-							comma = i;
-							break;
-						case ':':
-							colon = i;
-							break;
-						case 'x':
-							times = i;
-							break;
-						default:
-							break;
-					}
-				}
-				
-				int left = Integer.parseInt(line.substring(at + 2, comma));
-				int top = Integer.parseInt(line.substring(comma + 1, colon));
-				int width = Integer.parseInt(line.substring(colon + 2, times));
-				int height = Integer.parseInt(line.substring(times + 1));
-				
-				for (int w = 0; w < width; w++) {
-					for (int h = 0; h < height; h++) {
-						if (++claims[left + w][top + h] == 2) {
-							claimed++;
-						}
+			for (int w = 0; w < width; w++) {
+				for (int h = 0; h < height; h++) {
+					if (++claims[left + w][top + h] == 2) {
+						claimed++;
 					}
 				}
 			}
-			
-			hasFirstRun = true;
-			System.out.println("3-1: " + claimed);
-		} catch (Exception e) {
-			System.err.println(e);
 		}
+		
+		return Integer.toString(claimed);
 	}
 	
 	/**
 	 * Finds the area that does not overlap with any other any other regions
 	 */
-	static void run_2() {
-		if (!hasFirstRun) {
-			System.err.println("3-2: Please run Day3.run_1() first.");
-			return;
-		}
-		
-		try {
-			InputStream in = Day3.class.getResourceAsStream("/inputs/3.txt");
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+	String run_2(String[] input) {
+		for (String line : input) {
+			Indexes i = getIndexes(line);
 			
-			String line;
+			int id = Integer.parseInt(line.substring(1, i.at - 1));
+			int left = Integer.parseInt(line.substring(i.at + 2, i.comma));
+			int top = Integer.parseInt(line.substring(i.comma + 1, i.colon));
+			int width = Integer.parseInt(line.substring(i.colon + 2, i.times));
+			int height = Integer.parseInt(line.substring(i.times + 1));
 			
-			while ((line = br.readLine()) != null) {
-				int at = 0, comma = 0, colon = 0, times = 0;
-				for (int i = 0; i < line.length(); i++) {
-					switch (line.charAt(i)) {
-						case '@':
-							at = i;
-							break;
-						case ',':
-							comma = i;
-							break;
-						case ':':
-							colon = i;
-							break;
-						case 'x':
-							times = i;
-							break;
-						default:
-							break;
-					}
-				}
-				
-				int id = Integer.parseInt(line.substring(1, at - 1));
-				int left = Integer.parseInt(line.substring(at + 2, comma));
-				int top = Integer.parseInt(line.substring(comma + 1, colon));
-				int width = Integer.parseInt(line.substring(colon + 2, times));
-				int height = Integer.parseInt(line.substring(times + 1));
-				
-				boolean found = true;
-				for (int w = 0; w < width; w++) {
-					for (int h = 0; h < height; h++) {
-						if (claims[left + w][top + h] != 1) {
-							found = false;
-							break;
-						}
-					}
-					if (!found) {
+			boolean found = true;
+			for (int w = 0; w < width; w++) {
+				for (int h = 0; h < height; h++) {
+					if (claims[left + w][top + h] != 1) {
+						found = false;
 						break;
 					}
 				}
-				
-				if (found) {
-					System.out.println("3-2: " + id + "\n");
+				if (!found) {
+					break;
 				}
 			}
-		} catch (Exception e) {
-			System.err.println(e);
+			
+			if (found) {
+				return Integer.toString(id);
+			}
 		}
+		return null;
+	}
+	
+	private Indexes getIndexes(String line) {
+		Indexes indexes = new Indexes();
+		for (int i = 0; i < line.length(); i++) {
+			switch (line.charAt(i)) {
+				case '@':
+					indexes.at = i;
+					break;
+				case ',':
+					indexes.comma = i;
+					break;
+				case ':':
+					indexes.colon = i;
+					break;
+				case 'x':
+					indexes.times = i;
+					break;
+				default:
+					break;
+			}
+		}
+		return indexes;
 	}
 }

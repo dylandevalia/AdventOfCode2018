@@ -12,16 +12,10 @@ package com.devalia.dylan.adventofcode;
 public class Main {
 	
 	public static void main(String[] args) {
-		Day1.run_1();
-		Day1.run_2();
 		
-		Day2.run_1();
-		Day2.run_2();
-		
-		Day3.run_1();
-		Day3.run_2();
-		
-		Day4.run_1();
-		Day4.run_2();
+		new Day1();
+		new Day2();
+		new Day3();
+		new Day4();
 	}
 }

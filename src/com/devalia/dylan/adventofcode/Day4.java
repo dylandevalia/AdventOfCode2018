@@ -1,26 +1,21 @@
 package com.devalia.dylan.adventofcode;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map.Entry;
 
-class Day4 {
+class Day4 extends AbstractDay {
 	
-	private static boolean hasFirstRun = false;
+	public Day4() {
+		super(4);
+	}
+	
 	private static HashMap<Integer, Integer[]> minTracking = new HashMap<>();
 	
-	static void run_1() {
-		String[] input = sortInput();
-		if (input == null) {
-			System.err.println("input is null");
-			return;
-		}
+	String run_1(String[] input) {
+		input = sortInput(input);
 		
 		HashMap<Integer, Integer> timeSleeping = new HashMap<>();
 		int longestSleeperId = -1;
@@ -72,7 +67,7 @@ class Day4 {
 					break;
 				default:
 					System.err.println("Unknown statement: " + s);
-					return;
+					return null;
 			}
 		}
 		
@@ -81,16 +76,10 @@ class Day4 {
 		for (int i = 1; i < arr.length; i++) {
 			bestMin = arr[i] > arr[bestMin] ? i : bestMin;
 		}
-		System.out.println("4-1: " + (longestSleeperId * bestMin));
-		hasFirstRun = true;
+		return Integer.toString(longestSleeperId * bestMin);
 	}
 	
-	static void run_2() {
-		if (!hasFirstRun) {
-			System.err.println("3-2: Please run Day3.run_1() first.");
-			return;
-		}
-		
+	String run_2(String[] input) {
 		int bestId = -1, bestMin = -1;
 		for (Object o : minTracking.entrySet()) {
 			Entry pair = (Entry) o;
@@ -104,31 +93,15 @@ class Day4 {
 			}
 		}
 		
-		System.out.println("4-2: " + bestId * bestMin + "\n");
+		return Integer.toString(bestId * bestMin);
 	}
 	
-	private static String[] sortInput() {
-		try {
-			InputStream in = Day2.class.getResourceAsStream("/inputs/4.txt");
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			
-			String line;
-			ArrayList<String> sorted = new ArrayList<>();
-			
-			while ((line = br.readLine()) != null) {
-				sorted.add(line);
-			}
-			
-			Collections.sort(sorted);
-			
-			// for (String s : sorted) {
-			// 	System.out.println(s);
-			// }
-			
-			return Arrays.copyOf(sorted.toArray(), sorted.size(), String[].class);
-		} catch (Exception e) {
-			System.err.println(e);
-		}
-		return null;
+	private String[] sortInput(String[] input) {
+		
+		ArrayList<String> sorted = new ArrayList<>(Arrays.asList(input));
+		
+		Collections.sort(sorted);
+		
+		return Arrays.copyOf(sorted.toArray(), sorted.size(), String[].class);
 	}
 }
