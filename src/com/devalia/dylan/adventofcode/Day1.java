@@ -9,8 +9,10 @@ class Day1 extends AbstractDay {
 	}
 	
 	/**
-	 * From the input file '/inputs/1.txt' calculates the cumulative value, starting from 0, after
-	 * adding or subtracting the number Prints the final sum.
+	 * Calculates the cumulative value, starting from 0, after adding or subtracting the number
+	 *
+	 * @param input Input file '/inputs/1.txt'
+	 * @return The cumulative sum of the input numbers starting from 0
 	 */
 	String run_1(String[] input) {
 		int sum = 0;
@@ -26,8 +28,10 @@ class Day1 extends AbstractDay {
 	}
 	
 	/**
-	 * From the input file '/inputs/1.txt' loops through the file calculating the cumulative value
-	 * until the sum has been reached twice Prints the number that was first reached twice
+	 * Loops through the input numbers until a sum that has been reached before
+	 *
+	 * @param input Input file '/inputs/1.txt'
+	 * @return The repeated sum
 	 */
 	String run_2(String[] input) {
 		int sum = 0;

@@ -5,14 +5,18 @@ import java.util.Map.Entry;
 
 class Day2 extends AbstractDay {
 	
-	public Day2() {
+	Day2() {
 		super(2);
 	}
 	
+	
 	/**
-	 * From the input file '/inputs/2.txt' runs through the list of values and checks how many have
-	 * two or three repeated characters. Prints the multiplication of number of values that have two
-	 * repeated characters and number of values that have three repeated characters
+	 * Runs through the values from the input and checks how many have two or three repeated
+	 * characters
+	 *
+	 * @param input Input file '/inputs/2.txt'
+	 * @return The multiplication of number of values that have two repeated characters and number
+	 * of values that have three repeated characters
 	 */
 	String run_1(String[] input) {
 		int two = 0, three = 0;
@@ -44,8 +48,10 @@ class Day2 extends AbstractDay {
 	}
 	
 	/**
-	 * From the input file '/inputs/2.txt' finds the two values which are the same bar one letter
-	 * Prints the characters that the values have in common (in order)
+	 * Finds the two values that only differ by one character
+	 *
+	 * @param input Input file '/inputs/2.txt'
+	 * @return The characters which the pair have in common
 	 */
 	String run_2(String[] input) {
 		for (int i = 0; i < input.length - 1; i++) {
@@ -71,7 +77,8 @@ class Day2 extends AbstractDay {
 				}
 				
 				if (found) {
-					return input[i].substring(0, failedChar).concat(input[i].substring(failedChar + 1));
+					return input[i].substring(0, failedChar)
+						.concat(input[i].substring(failedChar + 1));
 				}
 			}
 		}

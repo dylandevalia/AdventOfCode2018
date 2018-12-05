@@ -8,12 +8,20 @@ import java.util.Map.Entry;
 
 class Day4 extends AbstractDay {
 	
-	public Day4() {
+	Day4() {
 		super(4);
 	}
 	
 	private static HashMap<Integer, Integer[]> minTracking = new HashMap<>();
 	
+	/**
+	 * Sorts the input and then finds the guard that has slept the most and which minute of time
+	 * they slept the most
+	 *
+	 * @param input Input file '/inputs/4.txt'
+	 * @return The guard that has slept the most's id multiplied by the minute of the hour they
+	 * slept the most
+	 */
 	String run_1(String[] input) {
 		input = sortInput(input);
 		
@@ -79,6 +87,12 @@ class Day4 extends AbstractDay {
 		return Integer.toString(longestSleeperId * bestMin);
 	}
 	
+	/**
+	 * Finds the minute that the guards are most often asleep
+	 *
+	 * @param input Input file '/inputs/4.txt'
+	 * @return The id of the guard that slept the most in a min multiplied by the minute
+	 */
 	String run_2(String[] input) {
 		int bestId = -1, bestMin = -1;
 		for (Object o : minTracking.entrySet()) {
@@ -96,6 +110,12 @@ class Day4 extends AbstractDay {
 		return Integer.toString(bestId * bestMin);
 	}
 	
+	/**
+	 * Sorts the input into descending time
+	 *
+	 * @param input The input file
+	 * @return The sorted input
+	 */
 	private String[] sortInput(String[] input) {
 		
 		ArrayList<String> sorted = new ArrayList<>(Arrays.asList(input));
